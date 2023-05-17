@@ -27,14 +27,14 @@ export const getTasks = async (req, res, next) => {
 export const addTask = async (req, res, next) => {
   try {
     let user = req.user;
-    const { taskName, text, date, label } = req.body;
+    const { taskName, text, date, priority } = req.body;
     let newTask = await Task.create({
       userId: user,
       listId: req.params.listId,
       taskName,
       text,
       date,
-      label,
+      priority,
       completed: false,
     });
 
