@@ -15,6 +15,7 @@ const listSchema = new mongoose.Schema({
     type: String,
     default: "white",
   },
+  tasks: [mongoose.Schema.Types.ObjectId],
 });
 
 const List = mongoose.model("List", listSchema);

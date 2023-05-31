@@ -1,9 +1,9 @@
+import List from "../models/listModel.js";
 import Task from "../models/taskModel.js";
 
 export const getTasks = async (req, res, next) => {
   try {
     let allTasks = await Task.find({ listId: req.params.listId });
-
     if (allTasks.length === 0) {
       return res.status(400).json({
         status: "fail",
@@ -37,6 +37,18 @@ export const addTask = async (req, res, next) => {
       priority,
       completed: false,
     });
+    console.log(newTask);
+    console.log(req.params.listId);
+
+    const newtasklist = await List.findByIdAndUpdate(
+      req.params.listId,
+      { $push: { tasks: newTask._id } },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+    console.log(newtasklist);
 
     res.status(200).json({
       status: "success",
@@ -49,6 +61,12 @@ export const addTask = async (req, res, next) => {
       message: "Something went wrong. Please try after sometime",
     });
   }
+};
+
+export const getAllListsAndTasks = async (req, res, next) => {
+  const id = req.user;
+
+  // const listsTasks = await
 };
 
 export const updateTask = async (req, res, next) => {
