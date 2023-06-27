@@ -10,7 +10,8 @@ import {
 
 const router = express.Router({ mergeParams: true });
 
-router.route("/").post(auth, addTask).get(auth, getTasks);
+// router.route("/").post(auth, addTask).get(auth, getTasks);
+router.route("/:listId").post(auth, addTask).get(auth, getTasks);
 
 router.get("/usersListTasks", auth, getAllListsAndTasks);
 

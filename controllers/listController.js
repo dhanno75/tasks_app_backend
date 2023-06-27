@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import List from "../models/listModel.js";
 import Task from "../models/taskModel.js";
 
@@ -8,7 +9,7 @@ export const addList = async (req, res, next) => {
     const newList = await List.create({
       name: req.body.name,
       userId: user,
-      color: req.body.color,
+      color: "white",
     });
 
     res.status(201).json({
@@ -55,8 +56,26 @@ export const getAllList = async (req, res, next) => {
 
   const getAllListByUserId = await List.find({ userId: id });
 
+  const getAllListsTasksByUserId = await List.aggregate([
+    {
+      $match: {
+        userId: ObjectId(id),
+      },
+    },
+    {
+      $lookup: {
+        from: "tasks",
+        localField: "tasks",
+        foreignField: "_id",
+        as: "results",
+      },
+    },
+  ]);
+  console.log(getAllListsTasksByUserId);
+
   res.status(200).json({
     status: "success",
+    result: getAllListsTasksByUserId,
     data: getAllListByUserId,
   });
 };

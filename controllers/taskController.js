@@ -2,19 +2,21 @@ import List from "../models/listModel.js";
 import Task from "../models/taskModel.js";
 
 export const getTasks = async (req, res, next) => {
+  const { listId } = req.params;
   try {
-    let allTasks = await Task.find({ listId: req.params.listId });
-    if (allTasks.length === 0) {
-      return res.status(400).json({
-        status: "fail",
-        message: "There are no tasks in this list",
-      });
-    }
+    // let allTasks = await Task.find({ listId: req.params.listId });
+    // if (allTasks.length === 0) {
+    //   return res.status(400).json({
+    //     status: "fail",
+    //     message: "There are no tasks in this list",
+    //   });
+    // }
+    const tasks = await Task.find({ listId });
 
     res.status(200).json({
       status: "success",
-      results: allTasks.length,
-      data: allTasks,
+      results: tasks.length,
+      data: tasks,
     });
   } catch (err) {
     res.status(500).json({

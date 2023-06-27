@@ -10,7 +10,7 @@ import taskRouter from "./taskRoutes.js";
 
 const router = express.Router();
 
-router.use("/:listId/tasks", taskRouter);
+// router.use("/:listId/tasks", taskRouter);
 
 router.post("/addList", auth, addList);
 
