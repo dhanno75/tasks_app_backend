@@ -76,12 +76,12 @@ export const updateTask = async (req, res, next) => {
     const id = req.params.taskId;
     const task = await Task.findById(id);
 
-    if (!req.params.listId.equals(task.listId)) {
-      return res.status(401).json({
-        status: "fail",
-        message: "Unauthorized Access",
-      });
-    }
+    // if (!req.params.listId.equals(task.listId)) {
+    //   return res.status(401).json({
+    //     status: "fail",
+    //     message: "Unauthorized Access",
+    //   });
+    // }
     const updateTask = await Task.findByIdAndUpdate(id, req.body, {
       new: true,
       runValidators: true,
