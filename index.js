@@ -13,12 +13,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// // Database connection
-// const MONGO_URL = process.env.MONGO_URL;
-// const client = new MongoClient(MONGO_URL);
-// await client.connect();
-// console.log("MongoDB is connected!");
-
+// Database connection
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
